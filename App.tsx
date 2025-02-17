@@ -79,4 +79,5 @@ const styles = StyleSheet.create({
   },
 });
 
+export type { RootStackParamList };
 export default App;
