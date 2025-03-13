@@ -7,8 +7,6 @@ import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
-
-
 /*
 **ROOTSTACKPARAMLIST : IL DÉFINIT LES TYPES DES DIFFÉRENTES ROUTES DE VOTRE PILE DE NAVIGATION (STACK NAVIGATION).
 CE TYPE PERMET À TYPESCRIPT DE SAVOIR QUELLES PAGES EXISTENT DANS VOTRE APPLICATION ET QUEL TYPE DE PARAMÈTRES CHAQUE PAGE ATTEND.

@@ -1,7 +1,6 @@
 //RootStackParamList// src/App.tsx
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -18,7 +17,13 @@ import AvJeu from './src/AvJeu';
 import Jeu from './src/Jeu';
 
 
+//RootStackParamList est un type utilisé dans React Navigation, plus précisément avec TypeScript,
+//  pour définir les paramètres de navigation pour chaque écran de la pile de navigation (stack navigation) dans une application.
+//  Il permet de spécifier les noms des écrans et les paramètres associés à chaque écran,
+//  ce qui aide à garantir la sécurité des types et à éviter les erreurs de navigation. */
+
 // Définir le type RootStackParamList pour les paramètres de navigation
+
 type RootStackParamList = {
   SplashScreen: undefined;
   Home: undefined;
@@ -28,7 +33,7 @@ type RootStackParamList = {
   NiveauMulti: undefined;
   ChoixJeu: undefined;
   AvJeu: undefined;
-  Jeu: undefined;
+   Jeu: { players: number; level: string }; // Paramètres pour l'écran Jeu
   QuizSolo: undefined;
   BackgroundPattern: undefined;
 };
@@ -59,6 +64,8 @@ const App: React.FC = () => {
           <Stack.Screen name="NiveauMulti" component={NiveauMulti} />
           <Stack.Screen name="AvJeu" component={AvJeu} />
           <Stack.Screen name="Jeu" component={Jeu} />
+
+          {/* initialParams={{ theme: '' }}*/}
          
           <Stack.Screen name="Pret" component={Pret} options={{ title: "pret" }}  />
           <Stack.Screen name="QuizSolo" component={QuizSolo} />

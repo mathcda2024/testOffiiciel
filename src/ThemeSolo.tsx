@@ -15,7 +15,9 @@ type Props = {
   navigation: ThemeSoloScreenNavigationProp;
 };
 
-// Vérifier si le fichier sport.png est bien dans src/
+
+
+//card des themes avec leur nom et leur photos
 const sportImage = require('./image/sport.png'); // Chemin correct pour une image locale
 const musiqueImage = require('./image/musique.jpg'); // Chemin correct pour une image locale
 const scienceImage = require('./image/science.png'); // Chemin correct pour une image locale
@@ -39,6 +41,12 @@ const themes = [
 ];
 
 const ThemeSolo: React.FC<Props> = ({ navigation }) => {
+  
+ /* const handleThemeSelection = (theme: string) => {
+    navigation.navigate('Jeu', { theme });
+  };*/
+  
+  
   return (
     <View style={styles.container}>
 
@@ -51,7 +59,30 @@ const ThemeSolo: React.FC<Props> = ({ navigation }) => {
 
      <View style={styles.titleContainer}>
         <Text style={styles.title}>Choisissez un theme
-       </Text>
+        </Text>
+        
+
+       {/*  <TouchableOpacity 
+        style={styles.button} 
+        onPress={() => handleThemeSelection('histoire')}
+      >
+        <Text style={styles.buttonText}>Histoire</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+        style={styles.button} 
+        onPress={() => handleThemeSelection('science')}
+      >
+        <Text style={styles.buttonText}>Science</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+        style={styles.button} 
+        onPress={() => handleThemeSelection('sport')}
+      >
+        <Text style={styles.buttonText}>Sport</Text>
+        </TouchableOpacity>
+       */}
       </View>
       
       <FlatList
@@ -134,6 +165,16 @@ title: {
     alignItems: 'center',
     borderRadius: 5,
     marginTop: -30, // Ajuster la marge pour que RETOUR soit plus proche de OK
+  },
+    button: {
+    backgroundColor: '#4CAF50',
+    padding: 15,
+    margin: 10,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
   },
 });
 

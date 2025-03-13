@@ -5,7 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 type RootStackParamList = {
   ThemeSolo: undefined;
   Pret: undefined;
-  QuizSolo: undefined;  // Ajout de QuizSolo à la liste des routes
+  Jeu: undefined;  // Ajout de QuizSolo à la liste des routes
 };
 
 type PretScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Pret'>;
@@ -37,7 +37,7 @@ const Pret: React.FC<Props> = ({ navigation }) => {
 
     // REDIRECTION VERS LA PAGE DE QUIZ
     setTimeout(() => {
-      navigation.navigate('QuizSolo');
+      navigation.navigate('Jeu');
     }, 400); // Délai pour attendre la fin de l'animation avant la navigation 0.4S
   };
 
