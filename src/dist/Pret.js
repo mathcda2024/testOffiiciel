@@ -31,7 +31,7 @@ var Pret = function (_a) {
                 styles.animatedButton,
                 { transform: [{ scale: bounceAnim }] },
             ] },
-            react_1["default"].createElement(react_native_1.TouchableOpacity, { style: styles.button, onPress: handlePress },
+            react_1["default"].createElement(react_native_1.TouchableOpacity, { style: styles.button, onPress: function () { return navigation.navigate('QuizSolo'); } },
                 react_1["default"].createElement(react_native_1.Text, { style: styles.buttonText }, "PR\u00CAT !"))),
         react_1["default"].createElement(react_native_1.TouchableOpacity, { style: styles.cancelButton, onPress: function () { return navigation.navigate('ThemeSolo'); } },
             react_1["default"].createElement(react_native_1.Text, { style: styles.cancelText }, "ANNULER"))));

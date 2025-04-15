@@ -15,6 +15,9 @@ import ChoixJeu from './src/ChoixJeu';
 import QuizSolo from './src/QuizSolo';
 import AvJeu from './src/AvJeu';
 import Jeu from './src/Jeu';
+import Partie from './src/Partie';
+import BilanQuizSolo from './src/BilanQuizSolo';
+import ActionVerite from './src/ActionVerite';
 
 
 //RootStackParamList est un type utilisé dans React Navigation, plus précisément avec TypeScript,
@@ -36,6 +39,7 @@ type RootStackParamList = {
    Jeu: { players: number; level: string }; // Paramètres pour l'écran Jeu
   QuizSolo: undefined;
   BackgroundPattern: undefined;
+  ActionVerite: undefined;
 };
 
 
@@ -69,6 +73,9 @@ const App: React.FC = () => {
          
           <Stack.Screen name="Pret" component={Pret} options={{ title: "pret" }}  />
           <Stack.Screen name="QuizSolo" component={QuizSolo} />
+          <Stack.Screen name="Partie" component={Partie} />
+          <Stack.Screen name="BilanQuizSolo" component={BilanQuizSolo} />
+          <Stack.Screen name="ActionVerite" component={ActionVerite} />
     
          
 

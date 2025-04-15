@@ -5,7 +5,8 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 // Définition des types de navigation
 type RootStackParamList = {
   ChoixJeu: undefined;
-  AvJeu: undefined;
+  //AvJeu: undefined;
+  ActionVerite: undefined;
   NiveauMulti: undefined;
 };
 
@@ -24,7 +25,7 @@ const ChoixJeu: React.FC<Props> = ({ navigation }) => {
       {/* Conteneur des cartes */}
       <View style={styles.cardContainer}>
         {/* Carte Action Vérité */}
-        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate("AvJeu")}>
+        <TouchableOpacity style={styles.card} onPress={() => navigation.navigate("ActionVerite")}>
           <Image source={require("./image/av.jpg")} style={styles.cardImage} />
           <Text style={styles.cardText}>ACTION VÉRITÉ</Text>
         </TouchableOpacity>

@@ -6,6 +6,66 @@ var questions = {
     FACILE: [
         { question: 'Quel est le capital de la France ?', answers: ['Paris', 'Londres', 'Madrid'], correct: 0 },
         { question: 'Combien de continents y a-t-il ?', answers: ['5', '6', '7'], correct: 2 },
+        {
+            question: 'Quel est le plus grand océan du monde ?',
+            answers: ['Océan Atlantique', 'Océan Pacifique', 'Océan Indien'],
+            correct: 1
+        },
+        {
+            question: 'En quelle année l homme a t il marché sur la Lune pour la première fois ?',
+            answers: ['1965', '1969', '1972'],
+            correct: 1
+        },
+        {
+            question: 'Quelle est la capitale de lAustralie ?',
+            answers: ['Sydney', 'Melbourne', 'Canberra'],
+            correct: 2
+        },
+        {
+            question: 'Combien de pattes a une araignée ?',
+            answers: ['6', '8', '10'],
+            correct: 1
+        },
+        {
+            question: 'Quelle est la planète la plus proche du Soleil ?',
+            answers: ['Mercure', 'Vénus', 'Mars'],
+            correct: 0
+        },
+        {
+            question: 'Quel est l élément chimique dont le symbole est "O" ?',
+            answers: ['Or', 'Oxygène', 'Osmium'],
+            correct: 1
+        },
+        {
+            question: 'Qui a peint La Joconde ?',
+            answers: ['Michel-Ange', 'Léonard de Vinci', 'Raphaël'],
+            correct: 1
+        },
+        {
+            question: 'Quel pays a inventé les sushis ?',
+            answers: ['Chine', 'Corée du Sud', 'Japon'],
+            correct: 2
+        },
+        {
+            question: 'Combien de joueurs y a-t-il dans une équipe de football ?',
+            answers: ['9', '10', '11'],
+            correct: 2
+        },
+        {
+            question: 'Quelle est la langue la plus parlée dans le monde ?',
+            answers: ['Anglais', 'Chinois mandarin', 'Espagnol'],
+            correct: 1
+        },
+        {
+            question: 'Quel est le plus grand désert du monde ?',
+            answers: ['Sahara', 'Antarctique', 'Gobi'],
+            correct: 1
+        },
+        {
+            question: 'Quelle est la capitale du Canada ?',
+            answers: ['Toronto', 'Vancouver', 'Ottawa'],
+            correct: 2
+        },
     ],
     STANDARD: [
         { question: 'Qui a écrit "Les Misérables" ?', answers: ['Victor Hugo', 'Émile Zola', 'Flaubert'], correct: 0 },
@@ -17,14 +77,15 @@ var questions = {
     ]
 };
 var QuizSolo = function (_a) {
-    var navigation = _a.navigation;
+    var navigation = _a.navigation, route = _a.route;
     var _b = react_1.useState(0), currentQuestionIndex = _b[0], setCurrentQuestionIndex = _b[1];
     var _c = react_1.useState(null), selectedAnswer = _c[0], setSelectedAnswer = _c[1];
     var _d = react_1.useState(0), score = _d[0], setScore = _d[1];
     var _e = react_1.useState(20), timeLeft = _e[0], setTimeLeft = _e[1];
     var _f = react_1.useState(true), isQuizActive = _f[0], setIsQuizActive = _f[1];
-    var _g = react_1.useState('FACILE'), level = _g[0], setLevel = _g[1]; // Vous pouvez le récupérer d'un state ou d'un contexte
-    var _h = react_1.useState(10), questionCount = _h[0], setQuestionCount = _h[1]; // Nombre de questions
+    var _g = react_1.useState('FACILE'), level = _g[0], setLevel = _g[1];
+    var _h = react_1.useState(10), questionCount = _h[0], setQuestionCount = _h[1];
+    var _j = react_1.useState('JoueurXYZ'), playerName = _j[0], setPlayerName = _j[1]; // Nom du joueur par défaut
     var currentQuestions = questions[level];
     react_1.useEffect(function () {
         if (isQuizActive) {
@@ -46,14 +107,18 @@ var QuizSolo = function (_a) {
         }
         if (currentQuestionIndex < questionCount - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
+            setSelectedAnswer(null);
+            setTimeLeft(level === 'FACILE' ? 20 : level === 'STANDARD' ? 15 : 10);
         }
         else {
-            react_native_1.Alert.alert('Félicitations', "Votre score final est " + score + "/" + questionCount, [
-                { text: 'OK', onPress: function () { return navigation.navigate('Home'); } }
-            ]);
+            // Quiz terminé, naviguer vers la page BilanQuiz
+            setIsQuizActive(false);
+            navigation.navigate('BilanQuizSolo', {
+                score: score,
+                totalQuestions: questionCount,
+                playerName: playerName
+            });
         }
-        setSelectedAnswer(null);
-        setTimeLeft(level === 'FACILE' ? 20 : level === 'STANDARD' ? 15 : 10); // Timer en fonction du niveau
     };
     var handleAnswer = function (index) {
         setSelectedAnswer(index);
@@ -64,25 +129,30 @@ var QuizSolo = function (_a) {
             { text: 'Oui', onPress: function () { return navigation.navigate('Home'); } }
         ]);
     };
-    return (react_1["default"].createElement(react_native_1.View, { style: styles.container },
+    return (react_1["default"].createElement(react_native_1.SafeAreaView, { style: styles.container },
         react_1["default"].createElement(react_native_1.View, { style: styles.header },
             react_1["default"].createElement(react_native_1.Text, { style: styles.headerText },
                 "Question ",
                 currentQuestionIndex + 1,
                 " / ",
                 questionCount),
+            react_1["default"].createElement(react_native_1.View, { style: styles.timeContainer },
+                react_1["default"].createElement(react_native_1.Text, { style: styles.timerText }, timeLeft)),
             react_1["default"].createElement(react_native_1.Text, { style: styles.scoreText },
                 "Score: ",
-                score),
-            react_1["default"].createElement(react_native_1.Text, { style: styles.timerText },
-                timeLeft,
-                "s")),
+                score)),
         react_1["default"].createElement(react_native_1.View, { style: styles.questionContainer },
             react_1["default"].createElement(react_native_1.Text, { style: styles.questionText }, currentQuestions[currentQuestionIndex].question),
-            currentQuestions[currentQuestionIndex].answers.map(function (answer, index) { return (react_1["default"].createElement(react_native_1.TouchableOpacity, { key: index, style: [styles.answerButton, selectedAnswer === index && styles.selectedAnswerButton], onPress: function () { return handleAnswer(index); } },
+            currentQuestions[currentQuestionIndex].answers.map(function (answer, index) { return (react_1["default"].createElement(react_native_1.TouchableOpacity, { key: index, style: [
+                    styles.answerButton,
+                    selectedAnswer === index &&
+                        (index === currentQuestions[currentQuestionIndex].correct
+                            ? styles.correctAnswerButton
+                            : styles.wrongAnswerButton)
+                ], onPress: function () { return handleAnswer(index); }, disabled: selectedAnswer !== null },
                 react_1["default"].createElement(react_native_1.Text, { style: styles.answerText }, answer))); })),
         react_1["default"].createElement(react_native_1.View, { style: styles.footer },
-            react_1["default"].createElement(react_native_1.TouchableOpacity, { style: styles.nextButton, onPress: nextQuestion, disabled: selectedAnswer === null },
+            react_1["default"].createElement(react_native_1.TouchableOpacity, { style: [styles.nextButton, selectedAnswer === null && styles.disabledButton], onPress: nextQuestion, disabled: selectedAnswer === null },
                 react_1["default"].createElement(react_native_1.Text, { style: styles.buttonText }, "Suivant")),
             react_1["default"].createElement(react_native_1.TouchableOpacity, { style: styles.quitButton, onPress: handleQuit },
                 react_1["default"].createElement(react_native_1.Text, { style: styles.buttonText }, "Quitter")))));
@@ -93,79 +163,107 @@ var styles = react_native_1.StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: 20,
-        backgroundColor: '#FFD700'
+        backgroundColor: 'white'
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center',
         width: '100%',
-        marginBottom: 20
+        marginTop: 20,
+        marginBottom: 30
     },
     headerText: {
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: 'bold',
-        color: '#008000'
+        color: '#555555'
     },
-    scoreText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#0000FF'
+    timeContainer: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        borderWidth: 2,
+        borderColor: '#FF6B6B',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     timerText: {
-        fontSize: 20,
+        fontSize: 24,
         fontWeight: 'bold',
-        color: '#FF0000'
+        color: '#FF6B6B'
+    },
+    scoreText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#555555'
     },
     questionContainer: {
         alignItems: 'center',
-        marginVertical: 20
+        width: '100%',
+        flex: 1,
+        justifyContent: 'center'
     },
     questionText: {
         fontSize: 22,
         textAlign: 'center',
-        marginBottom: 20,
+        marginBottom: 30,
         fontWeight: 'bold',
-        color: '#000000'
+        color: '#333333'
     },
     answerButton: {
-        backgroundColor: '#5A3A1B',
-        padding: 20,
-        width: '80%',
+        backgroundColor: 'white',
+        padding: 15,
+        width: '100%',
         alignItems: 'center',
         borderRadius: 10,
-        marginVertical: 10,
-        transition: 'all 0.3s ease'
+        marginVertical: 8,
+        borderWidth: 1,
+        borderColor: '#DDDDDD',
+        elevation: 2,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 2
     },
-    selectedAnswerButton: {
-        backgroundColor: '#28a745'
+    correctAnswerButton: {
+        backgroundColor: '#4ECDC4',
+        borderColor: '#4ECDC4'
+    },
+    wrongAnswerButton: {
+        backgroundColor: '#FF6B6B',
+        borderColor: '#FF6B6B'
     },
     answerText: {
-        color: '#FFFFFF',
-        fontSize: 18,
-        fontWeight: 'bold'
+        color: '#333333',
+        fontSize: 16,
+        fontWeight: '500'
     },
     footer: {
         width: '100%',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: 20
     },
     nextButton: {
-        backgroundColor: '#28a745',
-        padding: 20,
-        marginVertical: 15,
-        width: '80%',
+        backgroundColor: '#4ECDC4',
+        padding: 15,
+        marginVertical: 10,
+        width: '100%',
         alignItems: 'center',
-        borderRadius: 10
+        borderRadius: 25
+    },
+    disabledButton: {
+        backgroundColor: '#CCCCCC'
     },
     quitButton: {
-        backgroundColor: '#dc3545',
-        padding: 20,
+        backgroundColor: '#FF6B6B',
+        padding: 15,
         marginVertical: 10,
-        width: '80%',
+        width: '100%',
         alignItems: 'center',
-        borderRadius: 10
+        borderRadius: 25
     },
     buttonText: {
-        color: '#FFFFFF',
+        color: 'white',
         fontSize: 18,
         fontWeight: 'bold'
     }

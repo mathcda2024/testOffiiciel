@@ -6,6 +6,7 @@ type RootStackParamList = {
   ThemeSolo: undefined;
   Pret: undefined;
   Jeu: undefined;  // Ajout de QuizSolo à la liste des routes
+  QuizSolo: undefined;  // Ajout de QuizSolo à la liste des routes
 };
 
 type PretScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Pret'>;
@@ -49,7 +50,7 @@ const Pret: React.FC<Props> = ({ navigation }) => {
           { transform: [{ scale: bounceAnim }] },
         ]}
       >
-        <TouchableOpacity style={styles.button} onPress={handlePress}>
+        <TouchableOpacity style={styles.button} /*onPress={handlePress}*/ onPress={() => navigation.navigate('QuizSolo')}>
           <Text style={styles.buttonText}>PRÊT !</Text>
         </TouchableOpacity>
       </Animated.View>

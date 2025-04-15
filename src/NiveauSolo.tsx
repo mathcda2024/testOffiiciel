@@ -98,7 +98,7 @@ const NiveauSolo: React.FC<Props> = ({ navigation }) => {
       </Modal>
 
       {/* Boutons pour choisir les niveaux avec l'icône de validation */}
-      {['FACILE', 'STANDARD', 'DIFFICILE'].map(level => (
+      {['FACILE', 'STANDARD', 'DIFFICILE'].map(level => (  
         <TouchableOpacity 
           key={level} 
           style={[

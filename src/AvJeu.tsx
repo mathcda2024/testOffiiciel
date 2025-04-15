@@ -96,7 +96,7 @@ const AvJeu: React.FC<Props> = ({ navigation }) => {
       {/* Bouton OK */}
       <TouchableOpacity
         style={[styles.ok, !isFormValid && styles.disabledButton]}
-        onPress={() => isFormValid && navigation.navigate('Jeu')}
+        onPress={() => isFormValid && navigation.navigate('Partie')}
         disabled={!isFormValid}
       >
         <Text style={[styles.buttonText, !isFormValid && styles.disabledText]}>OK</Text>
